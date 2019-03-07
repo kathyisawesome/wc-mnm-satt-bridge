@@ -54,7 +54,7 @@
 			self.initialize_ui();
 			self.initialize_schemes();
 
-			container.$mnm_data.on( 'wc-mnm-updated-totals', self.update_subscription_totals );
+			container.$mnm_form.on( 'wc-mnm-updated-totals', self.update_subscription_totals );
 
 		};
 
@@ -130,7 +130,7 @@
 	};
 
 	// Hook into Mix and Match.
-	$( '.mnm_form .mnm_cart' ).each( function() {
+	$( '.mnm_form' ).each( function() {
 		$( this ).on( 'wc-mnm-initializing', function( event, container ) {
 			new MNM_Integration( container );
 		} );
