@@ -37,14 +37,23 @@ add_action( 'plugins_loaded', 'wc_mnm_satt_satt_bridge', 20 );
 /**
  * Sub schemes attached on a Product Bundle should not work if the bundle contains a non-convertible product, such as a "legacy" subscription.
  *
+ * WCS_ATT_Integrations::bundle_contains_subscription() is private and can't be used here, so duplicate it's logic.
+ *
  * @param  array       $schemes
  * @param  WC_Product  $product
  * @return array
  */
 function wc_mnm_satt_get_product_bundle_schemes( $schemes, $product ) {
 
-	if ( $product->is_type( 'bundle' ) && WCS_ATT_Integrations::bundle_contains_subscription( $product ) ) {
-		$schemes = array();
+	if ( $product->is_type( 'bundle' ) && function_exists( 'WC_PB' ) ) {
+		if ( version_compare( WC_PB()->version, '5.0.0' ) < 0 ) {
+			$contains_subs = $product->contains_sub();
+		} else {
+			$contains_subs = $product->contains( 'subscription' );
+		}
+		if( $contains_subs ) {
+			$schemes = array();
+		}
 	}
 
 	return $schemes;
