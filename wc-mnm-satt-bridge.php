@@ -1,9 +1,9 @@
 <?php
 /**
- * Plugin Name: WooCommerce Mix and Match + Subscribe All the Things Bridge
+ * Plugin Name: WooCommerce Mix and Match + All Products for Subscriptions Bridge
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-mix-and-match-products/
- * Description: Adds Subscribe All the Things support for Mix and Match per-item pricing.
  * Version: 1.0.2
+ * Description: Adds All Products for Subscriptions support for Mix and Match per-item pricing.
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
  * WC requires at least: 3.0.0
