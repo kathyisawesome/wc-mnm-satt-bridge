@@ -2,8 +2,8 @@
 /**
  * Plugin Name: WooCommerce Mix and Match + All Products for Subscriptions Bridge
  * Plugin URI: http://www.woocommerce.com/products/woocommerce-mix-and-match-products/
- * Version: 1.0.2
  * Description: Adds All Products for Subscriptions support for Mix and Match per-item pricing.
+ * Version: 1.0.3
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
  * WC requires at least: 3.6.0
@@ -71,7 +71,7 @@ function wc_mnm_satt_get_product_bundle_schemes( $schemes, $product ) {
  * @return void
  */
 function wc_mnm_satt_enqueue_scripts() {
-	wp_register_script( 'wc-add-to-cart-mnm-satt', plugins_url( '/js/wc-mnm-satt-bridge.js', __FILE__ ), array( 'jquery', 'jquery-blockui', 'wc-add-to-cart-mnm', 'wcsatt-single-product' ), '1.0.0', true );
+	wp_register_script( 'wc-add-to-cart-mnm-satt', plugins_url( '/js/wc-mnm-satt-bridge.js', __FILE__ ), array( 'jquery', 'jquery-blockui', 'wc-add-to-cart-mnm', 'wcsatt-single-product' ), '1.0.3', true );
 }
 
 /**
