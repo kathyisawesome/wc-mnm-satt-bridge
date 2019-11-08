@@ -6,8 +6,8 @@
  * Description: Adds All Products for Subscriptions support for Mix and Match per-item pricing.
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
- * WC requires at least: 3.0.0
- * WC tested up to: 3.5.3
+ * WC requires at least: 3.6.0
+ * WC tested up to: 3.8.0
  *
  *
  * Copyright: © 2019 Kathy Darling
