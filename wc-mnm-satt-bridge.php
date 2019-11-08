@@ -23,7 +23,13 @@
  */
 function wc_mnm_satt_satt_bridge() {
 	$version = function_exists( 'WC_Mix_and_Match' ) ? WC_Mix_and_Match()->version : '';
-	if( class_exists( 'WCS_ATT_Integrations' ) && version_compare( $version, '1.4.0-beta-1', '>=' ) ) {
+	if( class_exists( 'WCS_ATT_Integrations' ) && version_compare( $version, '1.4.0', '>=' ) ) {
+		// SATT 2.2.0 moved this filter to new WCS_ATT_Integration_PB_CP class.
+		if( is_callable( 'WCS_ATT_Integration_PB_CP', 'get_product_bundle_schemes' ) ) {
+			remove_filter( 'wcsatt_product_subscription_schemes', array( 'WCS_ATT_Integration_PB_CP', 'get_product_bundle_schemes' ), 10, 2 );
+		} else {
+			remove_filter( 'wcsatt_product_subscription_schemes', array( 'WCS_ATT_Integrations', 'get_product_bundle_schemes' ), 10, 2 );
+		}
 		remove_filter( 'wcsatt_product_subscription_schemes', array( 'WCS_ATT_Integrations', 'get_product_bundle_schemes' ), 10, 2 );
 		add_filter( 'wcsatt_product_subscription_schemes', 'wc_mnm_satt_get_product_bundle_schemes', 10, 2 );
 		add_action( 'wp_enqueue_scripts', 'wc_mnm_satt_enqueue_scripts' );
@@ -37,7 +43,7 @@ add_action( 'plugins_loaded', 'wc_mnm_satt_satt_bridge', 20 );
 /**
  * Sub schemes attached on a Product Bundle should not work if the bundle contains a non-convertible product, such as a "legacy" subscription.
  *
- * WCS_ATT_Integrations::bundle_contains_subscription() is private and can't be used here, so duplicate it's logic.
+ * WCS_ATT_Integration_PB_CP::bundle_contains_subscription() is private and can't be used here, so duplicate it's logic.
  *
  * @param  array       $schemes
  * @param  WC_Product  $product
