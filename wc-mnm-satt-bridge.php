@@ -23,7 +23,8 @@
  */
 function wc_mnm_satt_satt_bridge() {
 	$version = function_exists( 'WC_Mix_and_Match' ) ? WC_Mix_and_Match()->version : '';
-	if( class_exists( 'WCS_ATT_Integrations' ) && version_compare( $version, '1.4.0', '>=' ) ) {
+
+	if( class_exists( 'WCS_ATT' ) && version_compare( WCS_ATT::VERSION, '2.5.1', '>=' ) && version_compare( $version, '1.4.0', '>=' ) ) {
 		// SATT 2.2.0 moved this filter to new WCS_ATT_Integration_PB_CP class.
 		if( is_callable( 'WCS_ATT_Integration_PB_CP', 'get_product_bundle_schemes' ) ) {
 			remove_filter( 'wcsatt_product_subscription_schemes', array( 'WCS_ATT_Integration_PB_CP', 'get_product_bundle_schemes' ), 10, 2 );

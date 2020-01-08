@@ -10,3 +10,4 @@ Experimental mini-extension for that adds All Products for Subscriptions support
 
 1. This is proof of concept and not officially supported in any way.
 2. This requires Mix and Match 1.4+
+3. This requires All Products for Subscriptions 2.5.1+
