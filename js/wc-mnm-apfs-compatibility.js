@@ -201,11 +201,8 @@
 		}
 	};
 
-	// Hook into Mix and Match.
-	$( '.mnm_form' ).each( function() {
-		$( this ).on( 'wc-mnm-initializing', function( event, container ) {
-			new MNM_Integration( container );
-		} );
-	} );
+	$( 'body' ).on( 'wc-mnm-initializing', function( e, container ) {
+		new MNM_Integration( container );
+	});
 
 } ) ( jQuery );
