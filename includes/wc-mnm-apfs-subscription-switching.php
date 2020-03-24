@@ -1008,7 +1008,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 		 */
 		public static function set_container_type_validation_context( $product_id ) {
 			add_filter( 'woocommerce_mnm_container_validation_context', array( __CLASS__, 'set_add_to_order_validation_context' ) );
-			add_filter( 'woocommerce_add_to_order_container_validation', array( __CLASS__, 'validate_container_type_stock' ), 10, 4 );
+			add_filter( 'woocommerce_mnm_add_to_order_container_validation', array( __CLASS__, 'validate_container_type_stock' ), 10, 4 );
 		}
 
 		/**
@@ -1018,7 +1018,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 		 */
 		public static function reset_container_type_validation_context( $product_id ) {
 			remove_filter( 'woocommerce_mnm_container_validation_context', array( __CLASS__, 'set_add_to_order_validation_context' ) );
-			remove_filter( 'woocommerce_add_to_order_container_validation', array( __CLASS__, 'validate_container_type_stock' ) );
+			remove_filter( 'woocommerce_mnm_add_to_order_container_validation', array( __CLASS__, 'validate_container_type_stock' ), 10, 4 );
 		}
 
 		/**
@@ -1033,9 +1033,13 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 		/**
 		 * Validates container stock in 'add-to-order' context.
 		 *
+		 * @param  boolean                  $is_valid
+		 * @param  WC_Product_Mix_and_Match $container
+		 * @param  WC_MNM_Stock_Manager     $mnm_stock
+		 * @param  array                    $configuration
 		 * @param  boolean  $is_valid
 		 */
-		public static function validate_container_type_stock( $is_valid, $container_id, $stock_manager, $configuration ) {
+		public static function validate_container_type_stock( $is_valid, $container, $stock_manager, $configuration ) {
 
 			if ( $is_valid ) {
 
