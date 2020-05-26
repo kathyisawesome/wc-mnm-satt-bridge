@@ -75,11 +75,11 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 				$notices[] = sprintf( __( '<strong>WooCommerce Mix and Match: All Products for Subscriptions Compatibility</strong> mini-extension is inactive. The <strong>WooCommerce Subscriptions</strong> plugin must be active and atleast version %s for Mix and Match: All Products for Subscriptions Compatibility to function</strong>. Please update or activate WooCommerce Subscriptions.', 'wc_mnm_apfs_compatibility' ), self::$required[ 'subs' ] );
 			}
 
-			if( class_exists( 'WCS_ATT' ) && version_compare( WCS_ATT::VERSION, self::$required[ 'apfs' ] ) < 0 ) {
+			if( ! class_exists( 'WCS_ATT_Helpers' ) || ( class_exists( 'WCS_ATT' ) && version_compare( WCS_ATT::VERSION, self::$required[ 'apfs' ] ) < 0 ) ) {
 				$notices[] = sprintf( __( '<strong>WooCommerce Mix and Match: All Products for Subscriptions Compatibility</strong> mini-extension is inactive. The <strong>WooCommerce All Products for Subscriptions</strong> plugin must be active and atleast version %s for Mix and Match: All Products for Subscriptions Compatibility to function</strong>. Please update or activate WooCommerce All Products for Subscriptions.', 'wc_mnm_apfs_compatibility' ), self::$required[ 'apfs' ] );
 			}
 
-			if( class_exists( 'WC_Mix_and_Match' ) && version_compare( WC_Mix_and_Match()->version, self::$required[ 'mnm' ] ) < 0 ) {
+			if( ! did_action( 'woocommerce_mnm_loaded' ) || version_compare( WC_Mix_and_Match()->version, self::$required[ 'mnm' ] ) < 0 ) {
 				$notices[] = sprintf( __( '<strong>WooCommerce Mix and Match: All Products for Subscriptions Compatibility</strong> mini-extension is inactive. The <strong>WooCommerce Mix and Match Products</strong> plugin must be active and atleast version %s for Mix and Match: All Products for Subscriptions Compatibility to function</strong>. Please update or activate WooCommerce Mix and Match Products.', 'wc_mnm_apfs_compatibility' ), self::$required[ 'mnm' ] );
 			}
 
