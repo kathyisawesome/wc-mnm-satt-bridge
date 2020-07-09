@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WooCommerce Mix and Match: All Products for Subscriptions Compatibility
+ * Plugin Name: WooCommerce Mix and Match - All Products for Subscriptions Compatibility
  * Plugin URI:  http://www.woocommerce.com/products/woocommerce-mix-and-match-products/?aff=5151&cid=4951026 
  * Description: Adds All Products for Subscriptions support for Mix and Match Products.
  * Version: 2.0.0-beta-2
