@@ -1239,3 +1239,5 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 	} // End class: do not remove or there will be no more guacamole for you.
 
 endif; // End class_exists check.
+
+WC_MNM_APFS_Subscription_Switching::init();

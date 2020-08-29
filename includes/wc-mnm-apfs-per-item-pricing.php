@@ -137,3 +137,4 @@ if ( ! class_exists( 'WC_MNM_APFS_Per_Item_Pricing' ) ) :
 
 endif; // End class_exists check.
 
+WC_MNM_APFS_Per_Item_Pricing::init();

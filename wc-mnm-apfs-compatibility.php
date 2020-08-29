@@ -48,11 +48,8 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 				return false;
 			}
 
-			require_once( 'includes/wc-mnm-apfs-per-item-pricing.php' );
-			WC_MNM_APFS_Per_Item_Pricing::init();
-
-			require_once( 'includes/wc-mnm-apfs-subscription-switching.php' );
-			WC_MNM_APFS_Subscription_Switching::init();
+			require_once 'includes/wc-mnm-apfs-per-item-pricing.php';
+			require_once 'includes/wc-mnm-apfs-subscription-switching.php';
 
 		}
 
@@ -117,6 +114,6 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 
 endif; // End class_exists check.
 
-// Launch the whole plugin.
-add_action( 'plugins_loaded', array( 'WC_MNM_APFS_Compatibility', 'init' ), 20 );
+// Launch the whole plugin... after APFS compat class.
+add_action( 'plugins_loaded', array( 'WC_MNM_APFS_Compatibility', 'init' ), 100 );
 
