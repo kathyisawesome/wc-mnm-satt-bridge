@@ -6,8 +6,8 @@
  * Version: 2.0.0
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
- * WC requires at least: 3.6.0
  * WC tested up to: 3.9.0
+ * WC requires at least: 4.0.0
  *
  * Copyright: © 2019 Kathy Darling
  * License: GNU General Public License v3.0
@@ -32,8 +32,8 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 		 * @since 2.0.0
 		 */
 		public static $required = array( 
-			'woo'  => '3.9.0',
-			'mnm'  => '1.9.0-beta-1',
+			'woo'  => '4.0.0',
+			'mnm'  => '1.9.0',
 			'apfs' => '3.0.0',
 			'subs' => '3.0.0'
 		);
