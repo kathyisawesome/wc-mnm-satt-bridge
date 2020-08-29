@@ -6,8 +6,8 @@
  * Version: 2.0.0
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
- * WC tested up to: 3.9.0
  * WC requires at least: 4.0.0
+ * WC tested up to: 4.4.0
  *
  * Copyright: © 2019 Kathy Darling
  * License: GNU General Public License v3.0
