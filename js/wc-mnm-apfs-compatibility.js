@@ -54,25 +54,12 @@
 
 				if ( container.satt_schemes.length > 0 ) {
 					container.$mnm_form.on( 'wc-mnm-updated-totals', self.update_subscription_totals );
-					container.$mnm_form.on( 'wc-mnm-validation-status-changed', self.maybe_hide_subscription_options );
 				}
 			}
 		};
 
 		this.has_single_forced_susbcription = function() {
 			return container.satt_schemes.length === 1 && satt.schemes_view.$el_option_items.filter( '.one-time-option' ).length === 0;
-		};
-
-		// Hide subscription options?
-		this.maybe_hide_subscription_options = function() {
-
-			if ( container.passes_validation() ) {
-				if ( ! self.has_single_forced_susbcription() ) {
-					satt.schemes_view.$el_content.slideDown( 200 );
-				}
-			} else {
-				satt.schemes_view.$el_content.slideUp( 200 );
-			}
 		};
 
 		// Update totals displayed in SATT options.
