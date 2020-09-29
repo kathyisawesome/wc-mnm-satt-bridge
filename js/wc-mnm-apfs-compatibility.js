@@ -65,10 +65,6 @@
 		// Update totals displayed in SATT options.
 		this.update_subscription_totals = function( event, container ) {
 
-			if ( ! container.passes_validation() ) {
-				return;
-			}
-
 			var container_price_html       = container.get_price_html(),
 				container_price_inner_html = $( container_price_html ).html();
 
