@@ -1,5 +1,4 @@
-# WooCommerce Mix and Match + All Products for Subscriptions (formerly SATT) Bridge
-
+# WooCommerce Mix and Match Subscriptions Support
 ### What's This?
 
 Mini-extension for that adds [All Products for Subscriptions](https://woocommerce.com/products/all-products-for-woocommerce-subscriptions?aff=5151&cid=4951026) support for [WooCommerce Mix and Match]( https://woocommerce.com/products/woocommerce-mix-and-match-products ) with per-item pricing.
