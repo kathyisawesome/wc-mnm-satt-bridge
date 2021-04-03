@@ -43,7 +43,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 		 */
 		public static function init() {
 
-			if( ! self::environment_check() ) {
+			if ( ! self::environment_check() ) {
 				add_action('admin_notices', array( __CLASS__, 'admin_notices' ) );
 				return false;
 			}
@@ -80,7 +80,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 				$notices[] = sprintf( __( '<strong>WooCommerce Mix and Match: All Products for Subscriptions Compatibility</strong> mini-extension is inactive. The <strong>WooCommerce Mix and Match Products</strong> plugin must be active and atleast version %s for Mix and Match: All Products for Subscriptions Compatibility to function</strong>. Please update or activate WooCommerce Mix and Match Products.', 'wc_mnm_apfs_compatibility' ), self::$required[ 'mnm' ] );
 			}
 
-			if( empty( $notices ) ) {
+			if ( empty( $notices ) ) {
 				return true;
 			} else {
 				update_option( 'wc_mnm_apfs_compatibility_notices', $notices );
@@ -99,7 +99,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 
 			$notices = get_option( 'wc_mnm_apfs_compatibility_notices' );
 
-			if( is_array( $notices ) ) {
+			if ( is_array( $notices ) ) {
 				foreach( $notices as $notice ) {
 					echo '<div class="notice notice-error">
 						<p>' . wp_kses_post( $notice ) . '</p>
