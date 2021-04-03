@@ -83,7 +83,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 			if( empty( $notices ) ) {
 				return true;
 			} else {
-				update_option( 'WC_MNM_APFS_Compatibility_notices', $notices );
+				update_option( 'wc_mnm_apfs_compatibility_notices', $notices );
 				return false;
 			}
 
@@ -97,7 +97,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 		 */
 		public static function admin_notices( $data ) {
 
-			$notices = get_option( 'WC_MNM_APFS_Compatibility_notices' );
+			$notices = get_option( 'wc_mnm_apfs_compatibility_notices' );
 
 			if( is_array( $notices ) ) {
 				foreach( $notices as $notice ) {
@@ -105,7 +105,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 						<p>' . wp_kses_post( $notice ) . '</p>
 					</div>';
 				}
-				delete_option( 'WC_MNM_APFS_Compatibility_notices' );
+				delete_option( 'wc_mnm_apfs_compatibility_notices' );
 			}
 
 	    }
