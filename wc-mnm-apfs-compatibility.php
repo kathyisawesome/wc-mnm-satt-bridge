@@ -1,13 +1,13 @@
 <?php
 /**
  * Plugin Name: WooCommerce Mix and Match - All Products for Subscriptions Compatibility
- * Plugin URI:  http://www.woocommerce.com/products/woocommerce-mix-and-match-products/?aff=5151&cid=4951026 
+ * Plugin URI:  http://www.woocommerce.com/products/woocommerce-mix-and-match-products/
  * Description: Adds All Products for Subscriptions support for Mix and Match Products.
  * Version: 2.0.2
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
- * WC requires at least: 4.0.0
- * WC tested up to: 4.4.0
+ * WC requires at least: 5.8.0
+ * WC tested up to: 6.0.0
  *
  * Copyright: © 2019 Kathy Darling
  * License: GNU General Public License v3.0
@@ -114,6 +114,6 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 
 endif; // End class_exists check.
 
-// Launch the whole plugin... after APFS compat class.
+// Launch the whole plugin.
 add_action( 'plugins_loaded', array( 'WC_MNM_APFS_Compatibility', 'init' ), 100 );
 
