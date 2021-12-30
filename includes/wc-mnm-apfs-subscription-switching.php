@@ -3,9 +3,9 @@
  * WC_MNM_APFS_Subscription_Switching class
  * Handles MNM container contents switching
  *
- * @author   Kathy Darling <kathy@kathyisawesome.com>
  * @package  WooCommerce Mix and Match Products: All Products For Subscriptions Compatibility
  * @since    2.0.0
+ * @version  2.1.0
  */
 
 // Exit if accessed directly.
@@ -726,22 +726,27 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 			$is_container_type_order_item           = wc_mnm_is_child_order_item( $item, $subscription );
 			$is_container_type_container_order_item = wc_mnm_is_container_order_item( $item, $subscription );
 
-			if ( $is_container_type_container_order_item && ! $is_container_type_order_item ) { 
+			if ( $is_container_type_container_order_item && ! $is_container_type_order_item ) {
 
-				$product = $item->get_product();
-				$schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-				$found   = false;
+				// See 'WCS_ATT_Manage_Switch::can_switch_item' for > 3.1.17
+				if ( version_compare( WCS_ATT::VERSION, '3.1.17' ) < 0 ) {
 
-				// Does a matching scheme exist?
-				foreach ( $schemes as $scheme ) {
-					if ( $scheme->matches_subscription( $subscription ) ) {
-						$found = true;
-						break;
+					$product = $item->get_product();
+					$schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
+					$found   = false;
+
+					// Does a matching scheme exist?
+					foreach ( $schemes as $scheme ) {
+						if ( $scheme->matches_subscription( $subscription ) ) {
+							$found = true;
+							break;
+						}
 					}
-				}
 
-				if ( ! $found ) {
-					$can = false;
+					if ( ! $found ) {
+						$can = false;
+					}
+
 				}
 
 			} elseif ( $is_container_type_order_item ) {
