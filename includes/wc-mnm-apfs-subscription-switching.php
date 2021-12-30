@@ -780,24 +780,28 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 
 			} elseif ( 'subscription_content_switching' === $feature && false === $is_feature_supported && $product->is_type( 'mix-and-match' ) ) {
 
-				if ( version_compare( WC_Subscriptions::$version, '2.6.0' ) >= 0 ) {
+				$subscription_has_fixed_length = isset( $args[ 'subscription' ] ) ? $args[ 'subscription' ]->get_time( 'end', '' ) : false;
+				// Length Proration must be enabled for switching to be possible when the current subscription/plan has a fixed length.
+				if ( $subscription_has_fixed_length && 'yes' !== get_option( WC_Subscriptions_Admin::$option_prefix . '_apportion_length', 'no' ) ) {
 
-					if ( $product->is_type( 'mix-and-match' ) ) {
+					$is_feature_supported = false;
 
-						$option_value = get_option( WC_Subscriptions_Admin::$option_prefix . '_allow_switching_mnm_contents', 'yes' ); 
+				} else {
 
-						if ( 'no' !== $option_value ) {
-							$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
-							$is_feature_supported = sizeof( $subscription_schemes );
-						}
+					$option_value = get_option( WC_Subscriptions_Admin::$option_prefix . '_allow_switching_mnm_contents', 'yes' ); 
 
+					if ( 'no' !== $option_value ) {
+						$subscription_schemes = WCS_ATT_Product_Schemes::get_subscription_schemes( $product );
+						$is_feature_supported = sizeof( $subscription_schemes );
 					}
 
 				}
+
 			}
 
 			return $is_feature_supported;
 		}
+
 
 		/**
 		 * Make WCS see containers with a switched content as non-identical ones.
