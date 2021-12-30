@@ -8,6 +8,8 @@
  * Author URI: http://kathyisawesome.com/
  * WC requires at least: 5.8.0
  * WC tested up to: 6.0.0
+ * GitHub Plugin URI: kathyisawesome/wc-mnm-satt-bridge
+ * GitHub Plugin URI: https://github.com/kathyisawesome/wc-mnm-satt-bridge
  *
  * Copyright: © 2019 Kathy Darling
  * License: GNU General Public License v3.0

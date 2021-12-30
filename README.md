@@ -17,3 +17,7 @@ To enable content switching (ie, changing the configuration of your Mix and Matc
 3. This requires [All Products for Subscriptions]( https://woocommerce.com/products/all-products-for-woocommerce-subscriptions/?aff=5151&cid=4951026 ) 2.5.1+
 
 *NOTE* Links are affiliate links and I will receive a commision from your purchase.
+
+### Automatic plugin updates
+
+Plugin updates can be enabled by installing the [Git Updater](https://git-updater.com/) plugin.
