@@ -6,6 +6,7 @@
  * @author   Kathy Darling <kathy@kathyisawesome.com>
  * @package  WooCommerce Mix and Match Products: All Products For Subscriptions Compatibility
  * @since    2.0.0
+ * @version  2.1.0
  */
 
 // Exit if accessed directly.
@@ -32,13 +33,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Per_Item_Pricing' ) ) :
 		 */
 		private static function add_hooks() {
 
-			// SATT 2.2.0 moved this filter to new WCS_ATT_Integration_PB_CP class.
-			if( is_callable( 'WCS_ATT_Integration_PB_CP', 'get_product_bundle_schemes' ) ) {
-				remove_filter( 'wcsatt_product_subscription_schemes', array( 'WCS_ATT_Integration_PB_CP', 'get_product_bundle_schemes' ), 10, 2 );
-			} else {
-				remove_filter( 'wcsatt_product_subscription_schemes', array( 'WCS_ATT_Integrations', 'get_product_bundle_schemes' ), 10, 2 );
-			}
-			remove_filter( 'wcsatt_product_subscription_schemes', array( 'WCS_ATT_Integrations', 'get_product_bundle_schemes' ), 10, 2 );
+			remove_filter( 'wcsatt_product_subscription_schemes', array( 'WCS_ATT_Integration_PB_CP', 'get_product_bundle_schemes' ), 10, 2 );
 			add_filter( 'wcsatt_product_subscription_schemes', array( __CLASS__, 'get_product_bundle_schemes' ), 10, 2 );
 
 			add_action( 'wcsatt_add_price_filters', array( __CLASS__, 'add_price_filters' ) );
