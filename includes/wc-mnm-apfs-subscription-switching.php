@@ -413,9 +413,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 
 				$data[ 'option_has_price' ]           = false !== strpos( $data[ 'option_details_html' ], '%p' );
 				$data[ 'dropdown_format' ]            = ucfirst( trim( wp_kses( $dropdown_details_html, array() ) ) );
-				$data[ 'dropdown_discounted_format' ] = sprintf( _x( '%1$s (%2$s off)', 'discounted dropdown option price', 'wc_mnm_apfs_compatibility' ), '%p', sprintf( _x( '%s%%', 'dropdown option discount', 'wc_mnm_apfs_compatibility' ), '%d' ) );
+				$data[ 'dropdown_discounted_format' ] = sprintf( _x( '%1$s (%2$s off)', 'discounted dropdown option price', 'wc-mnm-satt-bridge' ), '%p', sprintf( _x( '%s%%', 'dropdown option discount', 'wc-mnm-satt-bridge' ), '%d' ) );
 				$data[ 'dropdown_discount_decimals' ] = WCS_ATT_Product_Prices::get_formatted_discount_precision();
-				$data[ 'dropdown_sale_format' ]       = sprintf( _x( '%1$s (was %2$s)', 'dropdown option sale price', 'wc_mnm_apfs_compatibility' ), '%p', '%r' );
+				$data[ 'dropdown_sale_format' ]       = sprintf( _x( '%1$s (was %2$s)', 'dropdown option sale price', 'wc-mnm-satt-bridge' ), '%p', '%r' );
 			}
 
 			return $data;
@@ -624,7 +624,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 						WCS_Download_Handler::revoke_downloadable_file_permission( $child_product_id, $subscription->get_id(), $subscription->get_user_id() );
 
 						// Add order note.
-						$subscription->add_order_note( sprintf( _x( '"%1$s" (Product ID: #%2$d) removal triggered by "%3$s" via the My Account page.', 'used in order note', 'wc_mnm_apfs_compatibility' ), wcs_get_line_item_name( $child_item ), $child_product_id, wcs_get_line_item_name( $item ) ) );
+						$subscription->add_order_note( sprintf( _x( '"%1$s" (Product ID: #%2$d) removal triggered by "%3$s" via the My Account page.', 'used in order note', 'wc-mnm-satt-bridge' ), wcs_get_line_item_name( $child_item ), $child_product_id, wcs_get_line_item_name( $item ) ) );
 
 						// Trigger WCS action.
 						do_action( 'wcs_user_removed_item', $child_item, $subscription );
@@ -679,7 +679,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 						}
 
 						// Add order note.
-						$subscription->add_order_note( sprintf( _x( '"%1$s" (Product ID: #%2$d) removal un-done by "%3$s" via the My Account page.', 'used in order note', 'wc_mnm_apfs_compatibility' ), wcs_get_line_item_name( $child_item ), wcs_get_canonical_product_id( $child_item ), wcs_get_line_item_name( $item ) ) );
+						$subscription->add_order_note( sprintf( _x( '"%1$s" (Product ID: #%2$d) removal un-done by "%3$s" via the My Account page.', 'used in order note', 'wc-mnm-satt-bridge' ), wcs_get_line_item_name( $child_item ), wcs_get_canonical_product_id( $child_item ), wcs_get_line_item_name( $item ) ) );
 
 						// Trigger WCS action.
 						do_action( 'wcs_user_readded_item', $child_item, $subscription );
@@ -706,7 +706,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 
 			$data[] = array(
 				'id'    => 'mnm_contents',
-				'label' => __( 'Between Mix and Match Configurations', 'wc_mnm_apfs_compatibility' )
+				'label' => __( 'Between Mix and Match Configurations', 'wc-mnm-satt-bridge' )
 			);
 
 			return $data;
