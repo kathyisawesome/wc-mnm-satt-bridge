@@ -116,7 +116,8 @@ if ( ! class_exists( 'WC_MNM_APFS_Per_Item_Pricing' ) ) :
 		 * @return void
 		 */
 		public static function enqueue_scripts() {
-			wp_register_script( 'wc-add-to-cart-mnm-satt', plugins_url( '../js/wc-mnm-apfs-compatibility.js', __FILE__ ), array( 'jquery', 'jquery-blockui', 'wc-add-to-cart-mnm', 'wcsatt-single-product' ), WC_MNM_APFS_Compatibility::VERSION, true );
+			$suffix = defined( 'SCRIPT_DEBUG' ) && SCRIPT_DEBUG ? '' : '.min';
+			wp_register_script( 'wc-add-to-cart-mnm-satt', plugins_url( '../assets/js/frontend/wc-mnm-apfs-compatibility' . $suffix . '.js', __FILE__ ), array( 'jquery', 'jquery-blockui', 'wc-add-to-cart-mnm', 'wcsatt-single-product' ), WC_MNM_APFS_Compatibility::VERSION, true );
 		}
 
 		/**
