@@ -145,19 +145,17 @@
 						if ( scheme.data.subscription_scheme.has_price_filter ) {
 
 							if ( scheme.data.subscription_scheme.pricing_mode === 'inherit' && scheme.data.subscription_scheme.discount > 0 ) {
-
-								$.each( container.child_items, function( index, child_item ) {
-
-									var child_item_id = child_item.get_item_id();
+								
+								$.each( container.api.get_container_config(), function( product_id ) {
 
 									if ( scheme.data.discount_from_regular ) {
-										scheme_price_data.prices[ child_item_id ] = scheme_price_data.regular_prices[ child_item_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+										scheme_price_data.prices[ product_id ] = scheme_price_data.regular_prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
 									} else {
-										scheme_price_data.prices[ child_item_id ] = scheme_price_data.prices[ child_item_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+										scheme_price_data.prices[ product_id ] = scheme_price_data.prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
 									}
 									// Mix and Match does not yet support addons at the child level.
 									if( scheme_price_data.hasOwnProperty( 'addons_prices' ) ) {
-										scheme_price_data.addons_prices[ child_item_id ] = scheme_price_data.addons_prices[ child_item_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
+										scheme_price_data.addons_prices[ product_id ] = scheme_price_data.addons_prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
 									}
 								} );
 
