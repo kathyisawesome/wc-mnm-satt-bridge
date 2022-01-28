@@ -1,0 +1,30 @@
+{
+	"boss": true,
+	"curly": true,
+	"eqeqeq": true,
+	"eqnull": true,
+	"es3": true,
+	"expr": true,
+	"immed": true,
+	"noarg": true,
+	"onevar": true,
+	"quotmark": "single",
+	"trailing": true,
+	"undef": true,
+	"unused": true,
+	"multistr": true,
+
+	"browser": true,
+
+	"globals": {
+		"_": false,
+		"Backbone": false,
+		"jQuery": false,
+		"JSON": false,
+		"wp": false,
+		"wc_mnm_params": false,
+		"wc_mnm_admin_order_params": false,
+		"woocommerce_admin_meta_boxes": false,
+		"wc_mnm_price_format": false
+	}
+}

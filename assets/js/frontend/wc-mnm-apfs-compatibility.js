@@ -36,7 +36,7 @@
 				container.satt_scheme_one_time = {	
 					$el:  $scheme_option_one_time,	
 					data: $scheme_option_one_time.find( 'input' ).data( 'custom_data' )	
-				}
+				};
 			}
 
 			// Store scheme data for options that override the default prices.
