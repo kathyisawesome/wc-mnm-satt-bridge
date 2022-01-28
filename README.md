@@ -1,4 +1,11 @@
-# WooCommerce Mix and Match Subscriptions Support
+# WooCommerce Mix and Match - Subscriptions
+
+### Quickstart
+
+This is a developmental repo. Clone this repo and run `npm install && npm run build`   
+OR    
+[Download latest release](https://github.com/kathyisawesome/wc-mnm-grouped/releases/latest/download/wc-mnm-satt-bridge.zip)
+
 ### What's This?
 
 Mini-extension for that adds [All Products for Subscriptions](https://woocommerce.com/products/all-products-for-woocommerce-subscriptions?aff=5151&cid=4951026) support for [WooCommerce Mix and Match]( https://woocommerce.com/products/woocommerce-mix-and-match-products ) with per-item pricing.
