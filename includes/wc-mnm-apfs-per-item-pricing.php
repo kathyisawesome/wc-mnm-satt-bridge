@@ -6,7 +6,7 @@
  * @author   Kathy Darling <kathy@kathyisawesome.com>
  * @package  WooCommerce Mix and Match Products: All Products For Subscriptions Compatibility
  * @since    2.0.0
- * @version  2.1.0
+ * @version  2.2.0
  */
 
 // Exit if accessed directly.
@@ -41,6 +41,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Per_Item_Pricing' ) ) :
 
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 			add_action( 'woocommerce_mix-and-match_add_to_cart', array( __CLASS__, 'load_script' ), 20 );
+			add_filter( 'woocommerce_mnm_container_price_data', array( __CLASS__, 'container_price_data' ) );
 
 	    }
 
@@ -129,6 +130,18 @@ if ( ! class_exists( 'WC_MNM_APFS_Per_Item_Pricing' ) ) :
 			wp_enqueue_script( 'wc-add-to-cart-mnm-satt' );
 		}
 
+		/**
+		 * Modify container price data attributes to always show the total updating for schemes.
+		 *
+		 * @param  array       $data
+		 * @return array
+		 */
+		public static function container_price_data( $data) {
+			$data[ 'hide_total_on_validation_fail' ] = 'no';
+			return $data;
+		}
+
+		
 	} // End class: do not remove or there will be no more guacamole for you.
 
 endif; // End class_exists check.
