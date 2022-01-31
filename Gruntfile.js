@@ -1,5 +1,6 @@
 module.exports = function(grunt) {
 
+	const sass = require( 'node-sass' );
 	require( 'load-grunt-tasks' )( grunt );
 
 	// Project configuration.
@@ -9,8 +10,83 @@ module.exports = function(grunt) {
 
 		// Setting folder templates.
 		dirs: {
+			css: 'assets/css',
+			fonts: 'assets/fonts',
 			js: 'assets/js',
-			php: 'includes'
+			php: 'includes',
+			scss: 'assets/scss'
+		},
+
+		// Compile all .scss files.
+		sass: {
+			compile: {
+				options: {
+					implementation: sass
+				},
+				files: [
+				{
+					expand: true,
+					cwd: '<%= dirs.scss %>/admin/',
+					src: ['*.scss'],
+					dest: '<%= dirs.css %>/admin/',
+					ext: '.css'
+				},
+				{
+					expand: true,
+					cwd: '<%= dirs.scss %>/frontend',
+					src: ['*.scss'],
+					dest: '<%= dirs.css %>/frontend',
+					ext: '.css'
+				}
+				]
+			}
+		},
+
+		// Generate RTL .css files.
+		rtlcss: {
+			dist: {
+				expand: true,
+				src: [
+				'<%= dirs.css %>/admin/*.css',
+				'!<%= dirs.css %>/admin/*-rtl.css',
+				'!<%= dirs.css %>/admin/*.min.css',
+				'<%= dirs.css %>/frontend/*.css',
+				'!<%= dirs.css %>/frontend/*-rtl.css',
+				'!<%= dirs.css %>/frontend/*.min.css'
+				],
+				ext: '-rtl.css'
+			}
+		},
+
+		// Minify all .css files.
+		cssmin: {
+			dist: {
+				files: [{
+					expand: true,
+					src: [
+					'<%= dirs.css %>/admin/*.css',
+					'!<%= dirs.css %>/admin/*.min.css',
+					'<%= dirs.css %>/frontend/*.css',
+					'!<%= dirs.css %>/frontend/*.min.css'
+					],
+					ext: '.min.css'
+				}]
+			}
+		},
+
+		// Autoprefixer.
+		postcss: {
+			options: {
+				processors: [
+				require( 'autoprefixer' )
+				]
+			},
+			dist: {
+				src: [
+				'<%= dirs.css %>/admin/*.css',
+				'<%= dirs.css %>/frontend/*.css'
+				]
+			}
 		},
 
 		// Minify .js files.
@@ -74,6 +150,13 @@ module.exports = function(grunt) {
 
 		// Watch changes for assets.
 		watch: {
+			css: {
+				files: [
+				'<%= dirs.scss %>/admin/*.scss',
+				'<%= dirs.scss %>/frontend/*.scss'
+				],
+				tasks: ['sass', 'rtlcss', 'postcss', 'cssmin']
+			},
 			js: {
 				files: [
 				'<%= dirs.js %>/admin/*js',
@@ -180,8 +263,7 @@ module.exports = function(grunt) {
 			Version: {
 				src: [
 				'readme.txt',
-				'<%= pkg.name %>.php',
-				'includes/class-wc-mix-and-match.php'
+				'<%= pkg.name %>.php'
 				],
 				overwrite: true,
 				replacements: [
@@ -198,8 +280,16 @@ module.exports = function(grunt) {
 					to: "public $version = '<%= pkg.version %>'"
 				},
 				{
-					from: /public \$version      = \'.*.'/m,
-					to: "public $version      = '<%= pkg.version %>'"
+					from: /public \$version = \'.*.'/m,
+					to: "public $version = '<%= pkg.version %>'"
+				},
+				{
+					from: /public static \$version = \'.*.'/m,
+					to: "public static $version = '<%= pkg.version %>'"
+				},
+				{
+					from: /const VERSION = \'.*.'/m,
+					to: "const VERSION = '<%= pkg.version %>'"
 				}
 				]
 			}
@@ -226,6 +316,24 @@ module.exports = function(grunt) {
     );
 
 	grunt.registerTask(
+        'css',
+        [
+		'sass',
+		'rtlcss',
+		'postcss',
+		'cssmin'
+        ]
+    );
+
+	grunt.registerTask(
+        'assets',
+        [
+		'js',
+		'css'
+        ]
+    );
+
+	grunt.registerTask(
         'zip',
         [
 		'clean',
@@ -234,8 +342,8 @@ module.exports = function(grunt) {
         ]
     );
 
-	grunt.registerTask( 'dev', [ 'replace', 'js' ] );
-	grunt.registerTask( 'build', [ 'dev', 'addtextdomain', 'makepot' ] );
+	grunt.registerTask( 'dev', [ 'jshint', 'uglify', 'sass' ] );
+	grunt.registerTask( 'build', [ 'replace', 'assets', 'addtextdomain', 'makepot' ] );
 	grunt.registerTask( 'release', [ 'dev', 'zip', 'clean' ] );
 
 };
