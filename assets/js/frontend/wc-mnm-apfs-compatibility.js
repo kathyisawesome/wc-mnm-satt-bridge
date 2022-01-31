@@ -148,7 +148,7 @@
 								
 								$.each( container.api.get_container_config( 'v2' ), function( index, data ) {
 
-									var { product_id, product_qty } = data;
+									var { product_id } = data;
 
 									if ( scheme.data.discount_from_regular ) {
 										scheme_price_data.prices[ product_id ] = scheme_price_data.regular_prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
