@@ -146,7 +146,9 @@
 
 							if ( scheme.data.subscription_scheme.pricing_mode === 'inherit' && scheme.data.subscription_scheme.discount > 0 ) {
 								
-								$.each( container.api.get_container_config(), function( product_id ) {
+								$.each( container.api.get_container_config( 'v2' ), function( index, data ) {
+
+									var { product_id, product_qty } = data;
 
 									if ( scheme.data.discount_from_regular ) {
 										scheme_price_data.prices[ product_id ] = scheme_price_data.regular_prices[ product_id ] * ( 1 - scheme.data.subscription_scheme.discount / 100 );
