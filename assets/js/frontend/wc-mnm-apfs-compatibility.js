@@ -208,7 +208,7 @@
 
 							if ( satt.schemes_view.has_dropdown() ) {
 
-								var dropdown_price = wc_mnm_price_format( scheme_price_data.totals.price, true ),
+								var dropdown_price = wc_mnm_price_format( scheme_price_data.totals.price, { html: false } ),
 									discount       = '';
 
 								dropdown_price = scheme.data.dropdown_format.replace( '%p', dropdown_price );
@@ -221,7 +221,7 @@
 
 									} else if ( scheme_price_data.totals.regular_price > scheme_price_data.totals.price ) {
 
-										var dropdown_regular_price = wc_mnm_price_format( scheme_price_data.totals.regular_price, true );
+										var dropdown_regular_price = wc_mnm_price_format( scheme_price_data.totals.regular_price, { html: false } );
 
 										dropdown_price = scheme.data.dropdown_sale_format.replace( '%r', dropdown_regular_price ).replace( '%p', dropdown_price );
 									}
