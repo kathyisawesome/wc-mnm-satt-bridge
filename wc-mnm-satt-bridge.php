@@ -9,7 +9,7 @@
  * Text Domain: wc-mnm-satt-bridge
  * Domain Path: /languages
  * WC requires at least: 5.8.0
- * WC tested up to: 6.0.0
+ * WC tested up to: 6.1.0
  * GitHub Plugin URI: kathyisawesome/wc-mnm-satt-bridge
  * GitHub Plugin URI: https://github.com/kathyisawesome/wc-mnm-satt-bridge
  *
@@ -37,7 +37,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 		 */
 		public static $required = array( 
 			'woo'  => '4.0.0',
-			'mnm'  => '1.9.0',
+			'mnm'  => '1.12.0-beta-1',
 			'apfs' => '3.0.0',
 			'subs' => '3.0.0'
 		);
