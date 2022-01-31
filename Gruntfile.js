@@ -344,6 +344,6 @@ module.exports = function(grunt) {
 
 	grunt.registerTask( 'dev', [ 'jshint', 'uglify', 'sass' ] );
 	grunt.registerTask( 'build', [ 'replace', 'assets', 'addtextdomain', 'makepot' ] );
-	grunt.registerTask( 'release', [ 'dev', 'zip', 'clean' ] );
+	grunt.registerTask( 'release', [ 'build', 'zip', 'clean' ] );
 
 };
