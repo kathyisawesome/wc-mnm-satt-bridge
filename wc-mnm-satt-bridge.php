@@ -10,8 +10,10 @@
  * Domain Path: /languages
  * WC requires at least: 5.8.0
  * WC tested up to: 6.1.0
+ * 
  * GitHub Plugin URI: kathyisawesome/wc-mnm-satt-bridge
  * GitHub Plugin URI: https://github.com/kathyisawesome/wc-mnm-satt-bridge
+ * Release Asset: true
  *
  * Copyright: © 2019 Kathy Darling
  * License: GNU General Public License v3.0
