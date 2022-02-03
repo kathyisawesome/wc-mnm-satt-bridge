@@ -39,7 +39,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 		 */
 		public static $required = array( 
 			'woo'  => '4.0.0',
-			'mnm'  => '1.12.0-beta-1',
+			'mnm'  => '1.12.0',
 			'apfs' => '3.0.0',
 			'subs' => '3.0.0'
 		);
