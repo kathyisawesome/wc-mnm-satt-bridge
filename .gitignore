@@ -2,3 +2,4 @@ languages/wc-mnm-satt-bridge.pot
 package-lock.json
 assets/js/frontend/wc-mnm-apfs-compatibility.min.js
 deploy/
+bookmarks.json
