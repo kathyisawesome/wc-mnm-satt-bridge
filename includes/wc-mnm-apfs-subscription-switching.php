@@ -120,7 +120,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 			add_filter( 'woocommerce_before_calculate_totals', array( __CLASS__, 'restore_switch_type' ), 100 );
 
 			// Copy switch parameters from parent item.
-			add_filter( 'woocommerce_mnm_child_cart_item_data', array( __CLASS__, 'child_item_switch_cart_data' ), 10, 2 );
+			add_filter( 'wc_mnm_child_cart_item_data', array( __CLASS__, 'child_item_switch_cart_data' ), 10, 2 );
 
 			/*
 			 * Subscriptions management: Add products/carts to subscriptions.
@@ -138,11 +138,23 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 			// Add container to subscriptions.
 			add_filter( 'wscatt_add_cart_item_to_subscription_callback', array( __CLASS__, 'add_container_to_subscription_callback' ), 10, 3 );
 
-			// When loading child items, always set the active container scheme on the child objects.
-			add_filter( 'woocommerce_mnm_get_children', array( __CLASS__, 'set_child_items_scheme' ), 10, 2 );
+			if ( is_callable( array( 'WC_MNM_Compatibility', 'is_version_gte' ) ) && WC_MNM_Compatibility::is_version_gte( '2.0' ) ) {
 
-			// Add scheme data to runtime price cache hashes.
-			add_filter( 'woocommerce_mnm_prices_hash', array( __CLASS__, 'container_prices_hash' ), 10, 2 );
+				// When loading child items, always set the active container scheme on the child objects.
+				add_filter( 'wc_mnm_child_items', array( __CLASS__, 'set_child_items_scheme' ), 10, 2 );
+
+				// Add scheme data to runtime price cache hashes.
+				add_filter( 'wc_mnm_container_prices_hash', array( __CLASS__, 'container_prices_hash' ), 10, 2 );
+
+			} else {
+
+				// When loading child items, always set the active container scheme on the child objects.
+				add_filter( 'woocommerce_mnm_get_children', array( __CLASS__, 'set_child_items_scheme' ), 10, 2 );
+
+				// Add scheme data to runtime price cache hashes.
+				add_filter( 'woocommerce_mnm_prices_hash', array( __CLASS__, 'container_prices_hash' ), 10, 2 );
+
+			}
 			
 
 		}
@@ -166,11 +178,13 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 		/**
 		 * Set the active container scheme on a child item.
 		 *
-		 * @param  WC_Product               $child_item
+		 * @param  WC_Product        $child_product
 		 * @param  WC_Product_Mix_and_Match $container
 		 */
-		public static function set_child_item_scheme( $child_item, $container ) {
-			self::set_child_product_subscription_schemes( $child_item, $container );
+		public static function set_child_item_scheme( $child_product, $container ) {
+			if ( $child_product ) {
+				self::set_child_product_subscription_schemes( $child_product, $container );
+			}	
 		}
 
 		/**
@@ -271,7 +285,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 		 */
 		public static function set_child_item_subscription_scheme( $scheme_key, $cart_item, $cart_level_schemes ) {
 
-			if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
+			$container_cart_item = wc_mnm_get_cart_item_container( $cart_item );
+
+			if ( $container_cart_item ) {
 				if ( self::has_scheme_data( $container_cart_item ) ) {
 					$scheme_key = $container_cart_item[ 'wcsatt_data' ][ 'active_subscription_scheme' ];
 				}
@@ -291,7 +307,9 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 			foreach ( $cart->cart_contents as $cart_item_key => $cart_item ) {
 
 				// Is it a child item?
-				if ( $container_cart_item = wc_mnm_get_cart_item_container( $cart_item ) ) {
+				$container_cart_item = wc_mnm_get_cart_item_container( $cart_item );
+				
+				if ( $container_cart_item ) {
 					if ( self::has_scheme_data( $container_cart_item ) ) {
 						self::set_child_product_subscription_schemes( $cart_item[ 'data' ], $container_cart_item[ 'data' ] );
 					} elseif ( WCS_ATT_Product_Schemes::has_subscription_schemes( $cart_item[ 'data' ] ) ) {
@@ -829,7 +847,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 						foreach ( $configuration as $child_item_id => $child_item_configuration ) {
 
 							/**
-							 * 'woocommerce_mnm_child_item_cart_item_identifier' filter.
+							 * 'wc_mnm_child_item_cart_item_identifier' filter.
 							 *
 							 * Filters the config data array - use this to add any container-specific data that should result in unique container item ids being produced when the input data changes, such as add-ons data.
 							 *
@@ -837,7 +855,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 							 * @param  int    $child_item_id
 							 * @param  mixed  $product_id
 							 */
-							$configuration[ $child_item_id ] = apply_filters( 'woocommerce_mnm_child_item_cart_item_identifier', $child_item_configuration, $child_item_id, $product_id );
+							$configuration[ $child_item_id ] = apply_filters( 'wc_mnm_child_item_cart_item_identifier', $child_item_configuration, $child_item_id, $product_id );
 						}
 
 						$is_identical = $item->get_meta( '_mnm_config', true ) === $configuration;
@@ -1126,7 +1144,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 		/**
 		 * When loading child items, always set the active container scheme on the child objects.
 		 *
-		 * @param  array                    $child_items
+		 * @param  mixed WC_Produdct[] or in MNM 2.0 WC_MNM_Child_Item[]      $child_items
 		 * @param  WC_Product_Mix_and_Match $container
 		 */
 		public static function set_child_items_scheme( $child_items, $container ) {
@@ -1141,13 +1159,15 @@ if ( ! class_exists( 'WC_MNM_APFS_Subscription_Switching' ) ) :
 					}
 
 					foreach ( $child_items as $child_item ) {
-						self::set_child_item_scheme( $child_item, $container );
+						$product = $child_item instanceof WC_MNM_Child_Item ? $child_item->get_product() : $child_item;
+						self::set_child_item_scheme( $product, $container );
 					}
 
 				} else {
 
 					foreach ( $child_items as $child_item ) {
-						WCS_ATT_Product_Schemes::set_subscription_schemes( $child_item, array() );
+						$product = $child_item instanceof WC_MNM_Child_Item ? $child_item->get_product() : $child_item;
+						WCS_ATT_Product_Schemes::set_subscription_schemes( $product, array() );
 					}
 				}
 			}

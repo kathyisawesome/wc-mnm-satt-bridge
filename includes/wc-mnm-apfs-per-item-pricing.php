@@ -41,8 +41,14 @@ if ( ! class_exists( 'WC_MNM_APFS_Per_Item_Pricing' ) ) :
 
 			add_action( 'wp_enqueue_scripts', array( __CLASS__, 'enqueue_scripts' ) );
 			add_action( 'woocommerce_mix-and-match_add_to_cart', array( __CLASS__, 'load_script' ), 20 );
-			add_filter( 'woocommerce_mnm_container_price_data', array( __CLASS__, 'container_price_data' ) );
+			add_filter( 'wc_mnm_container_price_data', array( __CLASS__, 'container_price_data' ) );
 
+			add_filter( 'wcsatt_price_html_discount_format', array( __CLASS__, 'price_html_discount_format' ), 10, 2 );
+
+			//add_filter( 'wcsatt_price_html_args', array( __CLASS__, 'price_html_args' ), 10, 2 );
+
+			//add_filter( 'wcsatt_product_subscription_schemes', array( __CLASS__, 'child_subscription_schemes' ), 10, 2 );
+	
 	    }
 
 		/**
@@ -50,7 +56,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Per_Item_Pricing' ) ) :
 		 */
 		public static function add_price_filters( $context = '' ) {
 			if ( in_array( $context, array( 'price', '' ) ) ) {
-				add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_price' ), -1, 2 );
+				add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_price' ), -1, 2 ); // @todo: why is this added twice?
 				add_filter( 'woocommerce_product_get_price', array( __CLASS__, 'filter_price' ), 101, 2 );
 			}
 		}
@@ -136,12 +142,67 @@ if ( ! class_exists( 'WC_MNM_APFS_Per_Item_Pricing' ) ) :
 		 * @param  array       $data
 		 * @return array
 		 */
-		public static function container_price_data( $data) {
+		public static function container_price_data( $data ) {
 			$data[ 'hide_total_on_validation_fail' ] = 'no';
 			return $data;
 		}
 
-		
+
+		/**
+		 * Modify display of price string for scheme.
+		 * 
+		 * @since 2.3.0
+		 *
+		 * @param  array     $args
+		 * @param WC_Product $product
+		 * @return array
+		 */
+		public static function price_html_args( $args, $product ) {
+			if ( $product->is_type( 'mix-and-match' ) && $product->is_priced_per_product() && ( $product->is_on_sale() || $product->has_discount() ) ) {
+				if ( $product->get_container_price( 'min' ) !== $product->get_container_price( 'max' ) ) {
+					$args['hide_price'] = true;
+				}
+			}
+			return $args;
+		}
+
+
+
+		/**
+		 * Modify display of price string for scheme.
+		 * 
+		 * @since 2.3.0
+		 *
+		 * @param  bool     $discount_format
+		 * @param WC_Product $product
+		 * @return bool
+		 */
+		public static function price_html_discount_format( $discount_format, $product ) {
+			if ( $product->is_type( 'mix-and-match' ) && $product->is_priced_per_product() && ( $product->is_on_sale() || $product->has_discount() ) ) {
+				if ( $product->get_container_price( 'min' ) !== $product->get_container_price( 'max' ) ) {
+					$discount_format = true;
+				}
+			}
+			return $discount_format;
+		}
+
+		/**
+		 * Modify "one-time" to dynamically show price in scheme options.
+		 * 
+		 * @since 2.3.0
+		 *
+		 * @param  bool     $one_time_option_has_price
+		 * @param WC_Product $product
+		 * @return bool
+		 */
+		public static function one_time_option_has_price( $one_time_option_has_price, $product ) {
+			if ( $product->is_type( 'mix-and-match' ) && $product->is_priced_per_product() && $product->get_container_price( 'min' ) !== $product->get_container_price( 'max' ) ) {
+				$one_time_option_has_price = true;
+			}
+			return $one_time_option_has_price;
+		}
+
+
 	} // End class: do not remove or there will be no more guacamole for you.
 
 endif; // End class_exists check.
