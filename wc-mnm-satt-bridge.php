@@ -92,7 +92,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 				$notices[] = sprintf( __( '<strong>WooCommerce Mix and Match: All Products for Subscriptions Compatibility</strong> mini-extension is inactive. The <strong>WooCommerce All Products for Subscriptions</strong> plugin must be active and atleast version %s for Mix and Match: All Products for Subscriptions Compatibility to function</strong>. Please update or activate WooCommerce All Products for Subscriptions.', 'wc-mnm-satt-bridge' ), self::$required[ 'apfs' ] );
 			}
 
-			if ( ! did_action( 'woocommerce_mnm_loaded' ) || version_compare( WC_Mix_and_Match()->version, self::$required[ 'mnm' ], '<' ) ) {
+			if ( ! function_exists( 'WC_Mix_and_Match' ) || version_compare( WC_Mix_and_Match()->version, self::$required[ 'mnm' ], '<' ) ) {
 				$notices[] = sprintf( __( '<strong>WooCommerce Mix and Match: All Products for Subscriptions Compatibility</strong> mini-extension is inactive. The <strong>WooCommerce Mix and Match Products</strong> plugin must be active and atleast version %s for Mix and Match: All Products for Subscriptions Compatibility to function</strong>. Please update or activate WooCommerce Mix and Match Products.', 'wc-mnm-satt-bridge' ), self::$required[ 'mnm' ] );
 			}
 
