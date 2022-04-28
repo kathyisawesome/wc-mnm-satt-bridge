@@ -3,7 +3,7 @@
  * Plugin Name: WooCommerce Mix and Match - Subscriptions
  * Plugin URI:  http://www.woocommerce.com/products/woocommerce-mix-and-match-products/
  * Description: Enables full All Products for Subscriptions support for Mix and Match Products.
- * Version: 2.2.0
+ * Version: 2.2.1
  * Author: Kathy Darling
  * Author URI: http://kathyisawesome.com/
  * Text Domain: wc-mnm-satt-bridge
@@ -31,7 +31,7 @@ if ( ! class_exists( 'WC_MNM_APFS_Compatibility' ) ) :
 		 * @constant plugin version
 		 * @since 0.1.0
 		 */
-		const VERSION = '2.2.0';
+		const VERSION = '2.2.1';
 
 		/**
 		 * @var required versions

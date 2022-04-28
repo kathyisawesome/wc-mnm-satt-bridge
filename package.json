@@ -1,7 +1,7 @@
 {
   "title": "WooCommerce Mix and Match Products - Subscriptions",
   "name": "wc-mnm-satt-bridge",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": " Enables full All Products for Subscriptions support for Mix and Match Products",
   "main": "Gruntfile.js",
   "license": "GPL-3.0",
