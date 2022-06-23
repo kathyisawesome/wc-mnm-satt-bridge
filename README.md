@@ -1,5 +1,8 @@
 # WooCommerce Mix and Match - Subscriptions
 
+### Deprecatated
+This feature was officially included in Mix and Match 2.0 so this plugin is now redundant and the repo will be archived.
+
 ### Quickstart
 
 This is a developmental repo. Clone this repo and run `npm install && npm run build`   
